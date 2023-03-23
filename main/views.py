@@ -2,11 +2,18 @@ from django.contrib.auth import logout, get_user_model, login
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-
+from .models import Politician
 
 # Create your views here.
 def index(request):
-    return render(request, "index.html")
+    if request.user.is_authenticated:
+        my_objects = Politician.objects.filter(intercessors__email=request.user.email)
+        all_objects = Politician.objects.all()
+        all_objects.order_by('intercessors')
+        return render(request, "index.html", {"all":all_objects, "my":my_objects})
+    all_objects = Politician.objects.all()
+    all_objects.order_by('intercessors')
+    return render(request, "index.html", {"all": all_objects})
 
 def log_out(request):  # Odhlášení uživatele
     if request.user.is_authenticated:

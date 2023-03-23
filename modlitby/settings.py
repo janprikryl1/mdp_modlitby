@@ -28,8 +28,8 @@ SECRET_KEY = 'django-insecure-7%fr6&l-_dg32=^srl%!095qs=x--1k*)$tmx0#fyx=2o@c9_v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['127.0.0.1', 'belongs-vincent-boston-advertiser.trycloudflare.com']
+CSRF_TRUSTED_ORIGINS = ['https://belongs-vincent-boston-advertiser.trycloudflare.com','https://*.127.0.0.1']
 
 # Application definition
 

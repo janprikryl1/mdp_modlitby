@@ -7,7 +7,13 @@ class Politician(models.Model):
     surname = models.CharField(max_length=25)
     position = models.CharField(max_length=35)
 
-    intercessors = models.ManyToManyField(User)# Přímluvci
+    intercessors = models.ManyToManyField(User, blank=True)# Přímluvci
 
     def __str__(self):
-        return self.name + self.surname
+        return self.name + " " + self.surname
+
+    def is_intercessor(self, user):
+        for i in self.intercessors.all():
+            if i == user:
+                return True
+        return False

@@ -60,112 +60,17 @@
     </div>
   </header>
 
-<div class="container" style="padding-top: 20px;">
-    <h1>Ahoj, přidej se do našeho modlitebního řetězce</h1>
-    <p style="font-size: 15px;"><i>Především prosím, aby se konaly prosby, modlitby, přímluvy a díkůvzdání za všechny lidi, 2za krále i za všechny vysoko postavené, abychom mohli vést klidný a pokojný život ve vší zbožnosti a počestnosti. (1 Timoteovi 2, 1 - 8)</i></p>
-
-  {% if user.is_authenticated %}
-    <h2>Moje přímluvy</h2>
-          <table class="table">
-              <thead>
-                <tr>
-                    <th scope="col">Jméno</th>
-                    <th scope="col">Přijmení</th>
-                    <th scope="col">Postavení</th>
-                    <th scope="col">Stav</th>
-                </tr>
-                </thead>
-                <tbody>
-                    {% for i in my %}
-                        <tr>
-                          <td>{{ i.name }}</td>
-                          <td>{{ i.surname }}</td>
-                          <td>{{ i.position }}</td>
-                          <td><button type="button" class="btn btn-danger">Odebrat</button></td>
-                        </tr>
-
-                    {% endfor %}
-                </tbody>
-    </table>
-
-  {% endif %}
-    <h2>Všichni</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Jméno</th>
-          <th scope="col">Přijmení</th>
-          <th scope="col">Postavení</th>
-          <th scope="col">Přímluvci</th>
-        </tr>
-      </thead>
-      <tbody>
-      {% for i in all %}
-        <tr>
-          <td>{{ i.name }}</td>
-          <td>{{ i.surname }}</td>
-          <td>{{ i.position }}</td>
-            <td>{% if user.is_authenticated %}<button type="button" class="btn btn-primary">Přidat se k <span
-                    onclick="$('#who').text('{{ i.name }} {{ i.surname }}');
-                             $('#status').text('{{ i.position }}');
-                             $('#intercessors').text('');
-                             {% for y in i.intercessors.all %}
-                                $('#intercessors').append('{{ y.first_name }} {{ y.last_name }}<br>');
-                             {% endfor %}
-                            Detail_Modal.show();"
-                    class="badge bg-secondary">
-                {{ i.intercessors.all|length}}</span>
-            </button>
-            {% else %}
-                <button class="btn btn-secondary"
-                onclick="$('#who').text('{{ i.name }} {{ i.surname }}');
-                             $('#status').text('{{ i.position }}');
-                             $('#intercessors').text('');
-                             {% for y in i.intercessors.all %}
-                                $('#intercessors').append('{{ y.first_name }} {{ y.last_name }}<br>');
-                             {% endfor %}
-                            Detail_Modal.show();">{{ i.intercessors.all|length}}</button>
+          <div style="margin-top: 50px;">
+            {% if code == 404 %}
+                <H1 style="text-align: center;">Stránka nenalezena, omlouváme se 😢</H1>
+                <H4 style="text-align: center;">Můžete přejít na  <a href="{% url 'index' %}">hlavní stránku</a></H4>
+                <p style="text-align: center;">Kód chyby {{ code }}</p>
+            {% elif code == 500 %}
+                <H1 style="text-align: center;">Chyba, omlouváme se 😢</H1>
+                <H4 style="text-align: center;">Můžete přejít na <a href="{% url 'index' %}">hlavní stránku</a></H4>
+                <p style="text-align: center;">Kód chyby {{ code }}</p>
             {% endif %}
-            </td>
-        </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-</div>
+        </div>
 
-  <div class="modal fade" tabindex="-1" role="dialog" id="modalDetail">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content rounded-4 shadow">
-      <div class="modal-body p-5">
-        <h2 class="fw-bold mb-0" style="color: black;">Detail</h2>
-
-        <ul class="d-grid gap-4 my-5 list-unstyled">
-          <li class="d-flex gap-4">
-            <div>
-              <h5 class="mb-0" style="color: black;" id="who">Kdo</h5>
-            </div>
-          </li>
-          <li class="d-flex gap-4">
-            <div>
-              <h5 class="mb-0" style="color: black;" id="status">Funkce</h5>
-            </div>
-          </li>
-          <li class="d-flex gap-4">
-            <div>
-              <h5 class="mb-0" style="color: black;">Přímluvci</h5>
-                <p style="color: black;" id="intercessors">.</p>
-            </div>
-          </li>
-        </ul>
-        <button type="button" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Zavřít!</button>
-      </div>
-    </div>
-  </div>
-</div>
-  <script>var Detail_Modal = new bootstrap.Modal(document.getElementById('modalDetail'));</script>
-
-
-{% include 'sign_in_register.html' %}
-{% include 'footer.html' %}
 </body>
 </html>
