@@ -59,210 +59,72 @@
       </div>
     </div>
   </header>
-
-<div class="container" style="padding-top: 20px;">
-    <h1>Ahoj, přidej se do našeho modlitebního řetězce</h1>
-    <p style="font-size: 15px;"><i>Především prosím, aby se konaly prosby, modlitby, přímluvy a díkůvzdání za všechny lidi, 2za krále i za všechny vysoko postavené, abychom mohli vést klidný a pokojný život ve vší zbožnosti a počestnosti. (1 Timoteovi 2, 1 - 8)</i></p>
-
-  {% if user.is_authenticated %}
-    <h2>Moje přímluvy</h2>
-          <table class="table">
-              <thead>
-                <tr>
-                    <th scope="col">Jméno</th>
-                    <th scope="col">Přijmení</th>
-                    <th scope="col">Postavení</th>
-                    <th scope="col">Stav</th>
-                </tr>
-                </thead>
-                <tbody>
-                    {% for i in my %}
-                        <tr>
-                          <td>{{ i.name }}</td>
-                          <td>{{ i.surname }}</td>
-                          <td>{{ i.position }}</td>
-                          <td><button onclick="remove_me({{ i.id }})" type="button" class="btn btn-danger">Odebrat</button></td>
-                        </tr>
-
-                    {% endfor %}
-                </tbody>
-    </table>
-
-  {% endif %}
-    <h2>Všichni</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Jméno</th>
-          <th scope="col">Přijmení</th>
-          <th scope="col">Postavení</th>
-          <th scope="col">Přímluvci</th>
-        </tr>
-      </thead>
-      <tbody>
-      {% for i in all %}
-        <tr>
-          <td>{{ i.name }}</td>
-          <td>{{ i.surname }}</td>
-          <td>{{ i.position }}</td>
-            <td>{% if user.is_authenticated %}<button onclick="add_me({{ i.id }})" type="button" class="btn btn-primary">Přidat se k <span
-                    onclick="$('#who').text('{{ i.name }} {{ i.surname }}');
-                             $('#status').text('{{ i.position }}');
-                             $('#intercessors').text('');
-                             {% for y in i.intercessors.all %}
-                                $('#intercessors').append('{{ y.first_name }} {{ y.last_name }}<br>');
-                             {% endfor %}
-                            Detail_Modal.show();"
-                    class="badge bg-secondary"
-                    id="span_{{ i.id }}">
-                {{ i.intercessors.all|length}}</span>
-            </button>
-            {% else %}
-                <button class="btn btn-secondary"
-                onclick="$('#who').text('{{ i.name }} {{ i.surname }}');
-                             $('#status').text('{{ i.position }}');
-                             $('#intercessors').text('');
-                             {% for y in i.intercessors.all %}
-                                $('#intercessors').append('{{ y.first_name }} {{ y.last_name }}<br>');
-                             {% endfor %}
-                            Detail_Modal.show();">{{ i.intercessors.all|length}}</button>
-            {% endif %}
-            </td>
-        </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-</div>
-
-  <div class="modal fade" tabindex="-1" role="dialog" id="modalDetail">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content rounded-4 shadow">
-      <div class="modal-body p-5">
-        <h2 class="fw-bold mb-0" style="color: black;">Detail</h2>
-
-        <ul class="d-grid gap-4 my-5 list-unstyled">
-          <li class="d-flex gap-4">
-            <div>
-              <h5 class="mb-0" style="color: black;" id="who">Kdo</h5>
-            </div>
-          </li>
-          <li class="d-flex gap-4">
-            <div>
-              <h5 class="mb-0" style="color: black;" id="status">Funkce</h5>
-            </div>
-          </li>
-          <li class="d-flex gap-4">
-            <div>
-              <h5 class="mb-0" style="color: black;">Přímluvci</h5>
-                <p style="color: black;" id="intercessors">.</p>
-            </div>
-          </li>
-        </ul>
-        <button type="button" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Zavřít!</button>
-      </div>
-    </div>
+  <div class="container" style="padding-top: 30px;">
+      <h1>Pomožte nám prosím tím, že nás upozorníte na to, co bychom mohli zlepšit</h1>
+      <form id="message_form" style="padding-top: 20px;">
+              <div class="input-group mb-3">
+                  <span class="input-group-text" for="contact_email">Kontakt na vás</span>
+                  <input type="email" class="form-control" placeholder="E-mail" aria-label="Váš e-mail" aria-describedby="basic-addon1" id="contact_email" {% if user.is_authenticated %}value="{{ user.email }}"{% endif %} required>
+                </div>
+                <div class="input-group mb-3">
+                      <label class="input-group-text" for="subject">Předmět</label>
+                      <select class="form-select" id="subject">
+                        <option selected value="v">Návrh na vylepšení</option>
+                        <option value="p">Problém</option>
+                        <option value="j">Něco jiného</option>
+                      </select>
+                </div>
+                <div class="input-group">
+                  <span class="input-group-text">Zpráva</span>
+                  <textarea class="form-control" aria-label="Text zprávy" id="message" required></textarea>
+                </div>
+              <br>
+              <div class="input-group-btn">
+                  <input type="submit" class="btn btn-outline-primary">
+              </div>
+           </form>
   </div>
-</div>
-  <script>
-      var Detail_Modal = new bootstrap.Modal(document.getElementById('modalDetail'));
-
-      function add_me(id) {
-        $.ajax({
+<script>
+    $(document).ready(function (event) {
+            $('#message_form').on('submit', function (event) {
+            event.preventDefault();
+            $.ajax({
              type:'POST',
-             url:'{% url 'add_me' %}',
+             url:'{% url 'upload_feedback' %}',
              data:{
-                 'id': id,
+                 'email': $('#contact_email').val(),
+                 'subject': $('#subject').val(),
+                 'message': $('#message').val(),
                  'csrfmiddlewaretoken':'{{ csrf_token }}'
              },
              success: function (data) {
-                //Přidat do tabulky a do span_{{ i.id }}
-                 Info_Modal.show();
+                 $('#message_title').text("Odesláno");
+                 $('#message_text').text("Děkuji za zprávu");
+                 new bootstrap.Toast($('#thank_you')).show();
+                 $('#message').val("");
              },
                 error: function (edata) {
-
+                     $('#message_title').text("Neodesláno");
+                     $('#message_text').text("Omoluvám se za chybu, zkontrolujte internetové připojení");
+                     new bootstrap.Toast($('#thank_you')).show();
                 }
-        })
-      }
-      function remove_me(id) {
-        $.ajax({
-             type:'POST',
-             url:'{% url 'remove_me' %}',
-             data:{
-                 'id': id,
-                 'csrfmiddlewaretoken':'{{ csrf_token }}'
-             },
-             success: function (data) {
-                //Odebrat z tabulky a ze span_{{ i.id }}
-                RemoveModal.show();
-             },
-                error: function (edata) {
-
-                }
-        })
-      }
-  </script>
-
-<div class="modal fade" tabindex="-1" role="dialog" id="modalInfo">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content rounded-4 shadow">
-      <div class="modal-body p-5">
-        <h2 class="fw-bold mb-0" style="color: black;">Přidali jste se!</h2>
-
-        <ul class="d-grid gap-4 my-5 list-unstyled">
-          <li class="d-flex gap-4">
-            <div>
-              <h5 class="mb-0" style="color: black;">Děkujeme!</h5>
-            </div>
-          </li>
-        </ul>
-        <button type="button" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Dobře!</button>
-      </div>
+                     })
+                 });
+            });
+      </script>
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="thank_you" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+        <img src="media/icon/icon.svg" class="rounded me-2" width="20">
+      <strong class="me-auto" id="message_title">Odesláno</strong>
+      <small>Teď</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Zavřít"></button>
+    </div>
+    <div class="toast-body" id="message_text">
+      Děkuji za zprávu.
     </div>
   </div>
 </div>
-<div class="modal fade" tabindex="-1" role="dialog" id="modalRemove">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content rounded-4 shadow">
-      <div class="modal-body p-5">
-        <h2 class="fw-bold mb-0" style="color: black;">Odebrali jste se!</h2>
 
-        <ul class="d-grid gap-4 my-5 list-unstyled">
-          <li class="d-flex gap-4">
-            <div>
-              <h5 class="mb-0" style="color: black;">Už se nepřimlouváte</h5>
-            </div>
-          </li>
-        </ul>
-        <button type="button" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Zavřít!</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" tabindex="-1" role="dialog" id="modalError">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content rounded-4 shadow">
-      <div class="modal-body p-5">
-        <h2 class="fw-bold mb-0" style="color: black;">Chyba!</h2>
-
-        <ul class="d-grid gap-4 my-5 list-unstyled">
-          <li class="d-flex gap-4">
-            <div>
-              <h5 class="mb-0" style="color: black;">Zkontrolujte prosím internetové připojení</h5>
-            </div>
-          </li>
-        </ul>
-        <button type="button" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Dobře!</button>
-      </div>
-    </div>
-  </div>
-</div>
-  <script>
-      var Info_Modal = new bootstrap.Modal(document.getElementById('modalInfo'));
-      var RemoveModal = new bootstrap.Modal(document.getElementById('modalRemove'));
-  </script>
-
-
-{% include 'sign_in_register.html' %}
-{% include 'footer.html' %}
 </body>
 </html>

@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-# Create your models here.
+# Model politika
 class Politician(models.Model):
     name = models.CharField(max_length=20)
     surname = models.CharField(max_length=25)
@@ -12,8 +12,20 @@ class Politician(models.Model):
     def __str__(self):
         return self.name + " " + self.surname
 
-    def is_intercessor(self, user):
-        for i in self.intercessors.all():
-            if i == user:
-                return True
-        return False
+#Volby zpětné vazby
+feedback_subject_choices = (
+    ("v", "Návrh na vylepšení"),
+    ("p", "Problém"),
+    ("j", "Něco jiného")
+)
+
+# Modely ukládané do databáze
+class Feedback(models.Model):  # Zpětná vazba
+    e_mail = models.EmailField()
+    subject = models.CharField(max_length=1, choices=feedback_subject_choices, default="v")
+    text = models.TextField()
+    date_time = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return self.text
