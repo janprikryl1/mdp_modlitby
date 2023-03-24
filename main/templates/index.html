@@ -17,14 +17,14 @@
     <div class="px-1 py-2 bg-dark text-white">
       <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <a href="{% url 'index' %}" class="align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none" id="icon">
-              <img src="/media/icon/icon.svg" alt="Icon" width="40" height="32">
+          <a href="{% url 'index' %}" class="align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none" id="header">
+              <img src="/media/icon/icon.png" alt="Icon" width="40" height="32">
           </a>
           <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small" id="icons">
             <li>
-              <a href="{% url 'index' %}" class="nav-link text-secondary">
+              <a href="{% url 'index' %}" class="nav-link text-white">
                 <svg viewBox="0 1 511 511.999" class="bi d-block mx-auto mb-1" width="24" height="24">
-                    <path
+                    <path fill="white"
                          d="m498.699219 222.695312c-.015625-.011718-.027344-.027343-.039063-.039062l-208.855468-208.847656c-8.902344-8.90625-20.738282-13.808594-33.328126-13.808594-12.589843 0-24.425781 4.902344-33.332031 13.808594l-208.746093 208.742187c-.070313.070313-.144532.144531-.210938.214844-18.28125 18.386719-18.25 48.21875.089844 66.558594 8.378906 8.382812 19.441406 13.234375 31.273437 13.746093.484375.046876.96875.070313 1.457031.070313h8.320313v153.695313c0 30.417968 24.75 55.164062 55.167969 55.164062h81.710937c8.285157 0 15-6.71875 15-15v-120.5c0-13.878906 11.292969-25.167969 25.171875-25.167969h48.195313c13.878906 0 25.167969 11.289063 25.167969 25.167969v120.5c0 8.28125 6.714843 15 15 15h81.710937c30.421875 0 55.167969-24.746094 55.167969-55.164062v-153.695313h7.71875c12.585937 0 24.421875-4.902344 33.332031-13.8125 18.359375-18.367187 18.367187-48.253906.027344-66.632813zm-21.242188 45.421876c-3.238281 3.238281-7.542969 5.023437-12.117187 5.023437h-22.71875c-8.285156 0-15 6.714844-15 15v168.695313c0 13.875-11.289063 25.164062-25.167969 25.164062h-66.710937v-105.5c0-30.417969-24.746094-55.167969-55.167969-55.167969h-48.195313c-30.421875 0-55.171875 24.75-55.171875 55.167969v105.5h-66.710937c-13.875 0-25.167969-11.289062-25.167969-25.164062v-168.695313c0-8.285156-6.714844-15-15-15h-22.328125c-.234375-.015625-.464844-.027344-.703125-.03125-4.46875-.078125-8.660156-1.851563-11.800781-4.996094-6.679688-6.679687-6.679688-17.550781 0-24.234375.003906 0 .003906-.003906.007812-.007812l.011719-.011719 208.847656-208.839844c3.234375-3.238281 7.535157-5.019531 12.113281-5.019531 4.574219 0 8.875 1.78125 12.113282 5.019531l208.800781 208.796875c.03125.03125.066406.0625.097656.09375 6.644531 6.691406 6.632813 17.539063-.03125 24.207032zm0 0"
                          id="path2"/>
                 </svg>
@@ -34,21 +34,20 @@
 
             <li>
                 {% if user.is_authenticated %}
-                  <a href="{% url 'log_out' %}" class="nav-link text-white hovertext" style="cursor: pointer;" data-hover="Odhlásit se">
+                  <a href="{% url 'log_out' %}" class="nav-link text-secondary" style="cursor: pointer;" data-hover="Odhlásit se">
                 <svg class="bi d-block mx-auto mb-1" height="24" viewBox="0 0 512 512" width="24">
-                  <path
+                  <path fill="gray"
                      d="m437.019531 74.980469c-48.351562-48.351563-112.640625-74.980469-181.019531-74.980469-68.382812 0-132.667969 26.628906-181.019531 74.980469-48.351563 48.351562-74.980469 112.636719-74.980469 181.019531 0 68.378906 26.628906 132.667969 74.980469 181.019531 48.351562 48.351563 112.636719 74.980469 181.019531 74.980469 68.378906 0 132.667969-26.628906 181.019531-74.980469 48.351563-48.351562 74.980469-112.640625 74.980469-181.019531 0-68.382812-26.628906-132.667969-74.980469-181.019531zm-308.679687 367.40625c10.707031-61.648438 64.128906-107.121094 127.660156-107.121094 63.535156 0 116.953125 45.472656 127.660156 107.121094-36.347656 24.972656-80.324218 39.613281-127.660156 39.613281s-91.3125-14.640625-127.660156-39.613281zm46.261718-218.519531c0-44.886719 36.515626-81.398438 81.398438-81.398438s81.398438 36.515625 81.398438 81.398438c0 44.882812-36.515626 81.398437-81.398438 81.398437s-81.398438-36.515625-81.398438-81.398437zm235.042969 197.710937c-8.074219-28.699219-24.109375-54.738281-46.585937-75.078125-13.789063-12.480469-29.484375-22.328125-46.359375-29.269531 30.5-19.894531 50.703125-54.3125 50.703125-93.363281 0-61.425782-49.976563-111.398438-111.402344-111.398438s-111.398438 49.972656-111.398438 111.398438c0 39.050781 20.203126 73.46875 50.699219 93.363281-16.871093 6.941406-32.570312 16.785156-46.359375 29.265625-22.472656 20.339844-38.511718 46.378906-46.585937 75.078125-44.472657-41.300781-72.355469-100.238281-72.355469-165.574219 0-124.617188 101.382812-226 226-226s226 101.382812 226 226c0 65.339844-27.882812 124.277344-72.355469 165.578125zm0 0"
                      id="path2"/>
                 </svg>
                       {{ user.first_name }} {{ user.last_name }}
                 </a>
             {% else %}
-                 <a onclick="Log_in_Modal.show();" class="nav-link text-white" style="cursor: pointer;">
+                 <a onclick="Log_in_Modal.show();" class="nav-link text-secondary" style="cursor: pointer;">
                 <svg class="bi d-block mx-auto mb-1" height="24" viewBox="0 0 512 512" width="24">
-                  <path
+                  <path fill="gray"
                      d="m437.019531 74.980469c-48.351562-48.351563-112.640625-74.980469-181.019531-74.980469-68.382812 0-132.667969 26.628906-181.019531 74.980469-48.351563 48.351562-74.980469 112.636719-74.980469 181.019531 0 68.378906 26.628906 132.667969 74.980469 181.019531 48.351562 48.351563 112.636719 74.980469 181.019531 74.980469 68.378906 0 132.667969-26.628906 181.019531-74.980469 48.351563-48.351562 74.980469-112.640625 74.980469-181.019531 0-68.382812-26.628906-132.667969-74.980469-181.019531zm-308.679687 367.40625c10.707031-61.648438 64.128906-107.121094 127.660156-107.121094 63.535156 0 116.953125 45.472656 127.660156 107.121094-36.347656 24.972656-80.324218 39.613281-127.660156 39.613281s-91.3125-14.640625-127.660156-39.613281zm46.261718-218.519531c0-44.886719 36.515626-81.398438 81.398438-81.398438s81.398438 36.515625 81.398438 81.398438c0 44.882812-36.515626 81.398437-81.398438 81.398437s-81.398438-36.515625-81.398438-81.398437zm235.042969 197.710937c-8.074219-28.699219-24.109375-54.738281-46.585937-75.078125-13.789063-12.480469-29.484375-22.328125-46.359375-29.269531 30.5-19.894531 50.703125-54.3125 50.703125-93.363281 0-61.425782-49.976563-111.398438-111.402344-111.398438s-111.398438 49.972656-111.398438 111.398438c0 39.050781 20.203126 73.46875 50.699219 93.363281-16.871093 6.941406-32.570312 16.785156-46.359375 29.265625-22.472656 20.339844-38.511718 46.378906-46.585937 75.078125-44.472657-41.300781-72.355469-100.238281-72.355469-165.574219 0-124.617188 101.382812-226 226-226s226 101.382812 226 226c0 65.339844-27.882812 124.277344-72.355469 165.578125zm0 0"
-                     id="path2"
-                     style="fill:#ffffff" />
+                     id="path2"/>
                 </svg>
                     Přihlaste se
                   </a>
@@ -62,11 +61,11 @@
 
 <div class="container" style="padding-top: 20px;">
     <h1>Ahoj, přidej se do našeho modlitebního řetězce</h1>
-    <p style="font-size: 15px;"><i>Především prosím, aby se konaly prosby, modlitby, přímluvy a díkůvzdání za všechny lidi, 2za krále i za všechny vysoko postavené, abychom mohli vést klidný a pokojný život ve vší zbožnosti a počestnosti. (1 Timoteovi 2, 1 - 8)</i></p>
+    <p style="font-size: 15px;" id="bible_text"><i>Především prosím, aby se konaly prosby, modlitby, přímluvy a díkůvzdání za všechny lidi, 2za krále i za všechny vysoko postavené, abychom mohli vést klidný a pokojný život ve vší zbožnosti a počestnosti. (1 Timoteovi 2, 1 - 8)</i></p>
 
   {% if user.is_authenticated %}
     <h2>Moje přímluvy</h2>
-          <table class="table">
+          <table class="table" id="my">
               <thead>
                 <tr>
                     <th scope="col">Jméno</th>
@@ -75,9 +74,9 @@
                     <th scope="col">Stav</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="tbody">
                     {% for i in my %}
-                        <tr>
+                        <tr id="my_{{ i.id }}">
                           <td>{{ i.name }}</td>
                           <td>{{ i.surname }}</td>
                           <td>{{ i.position }}</td>
@@ -90,7 +89,7 @@
 
   {% endif %}
     <h2>Všichni</h2>
-    <table class="table">
+    <table class="table" id="all">
       <thead>
         <tr>
           <th scope="col">Jméno</th>
@@ -105,27 +104,11 @@
           <td>{{ i.name }}</td>
           <td>{{ i.surname }}</td>
           <td>{{ i.position }}</td>
-            <td>{% if user.is_authenticated %}<button onclick="add_me({{ i.id }})" type="button" class="btn btn-primary">Přidat se k <span
-                    onclick="$('#who').text('{{ i.name }} {{ i.surname }}');
-                             $('#status').text('{{ i.position }}');
-                             $('#intercessors').text('');
-                             {% for y in i.intercessors.all %}
-                                $('#intercessors').append('{{ y.first_name }} {{ y.last_name }}<br>');
-                             {% endfor %}
-                            Detail_Modal.show();"
-                    class="badge bg-secondary"
-                    id="span_{{ i.id }}">
-                {{ i.intercessors.all|length}}</span>
-            </button>
+            <td>{% if user.is_authenticated %}<button onclick="add_me({{ i.id }})" type="button" class="btn btn-primary">Přidat se k</button>
+                <span
+                    onclick="load_data({{ i.id }}); Detail_Modal.show();" class="badge bg-secondary" id="span_{{ i.id }}">{{ i.intercessors.all|length}}</span>
             {% else %}
-                <button class="btn btn-secondary"
-                onclick="$('#who').text('{{ i.name }} {{ i.surname }}');
-                             $('#status').text('{{ i.position }}');
-                             $('#intercessors').text('');
-                             {% for y in i.intercessors.all %}
-                                $('#intercessors').append('{{ y.first_name }} {{ y.last_name }}<br>');
-                             {% endfor %}
-                            Detail_Modal.show();">{{ i.intercessors.all|length}}</button>
+                <button class="btn btn-secondary" onclick="load_data({{ i.id }}); Detail_Modal.show();">{{ i.intercessors.all|length}}</button>
             {% endif %}
             </td>
         </tr>
@@ -165,6 +148,28 @@
 </div>
   <script>
       var Detail_Modal = new bootstrap.Modal(document.getElementById('modalDetail'));
+      function load_data(id) {
+          $.ajax({
+             type:'POST',
+             url:'{% url 'load_details' %}',
+             data:{
+                 'id': id,
+                 'csrfmiddlewaretoken':'{{ csrf_token }}'
+             },
+             success: function (data) {
+                      $('#who').text(`${data.name}`);
+                      $('#status').text(`${data.position}`);
+                      $('#intercessors').text('');
+                      for (var i = 0; i < data.intercessors.length; i++) {
+                          $('#intercessors').append(`${data.intercessors[i].first_name} ${data.intercessors[i].last_name}<br>`);
+                      }
+             },
+                error: function (edata) {
+                    ErrorModal.show();
+                }
+        })
+      }
+
 
       function add_me(id) {
         $.ajax({
@@ -175,11 +180,29 @@
                  'csrfmiddlewaretoken':'{{ csrf_token }}'
              },
              success: function (data) {
-                //Přidat do tabulky a do span_{{ i.id }}
-                 Info_Modal.show();
+                 if (data.yet) {
+                     alert("Za tohoto politika se už přimlouváte");
+                 } else {
+                     //Přidat do tabulky a do span_{{ i.id }}
+                     $('#tbody').append(`<tr id="my_${id}">
+                          <td>${data.name}</td>
+                          <td>${data.surname}</td>
+                          <td>${data.position}</td>
+                          <td><button onclick="remove_me(${id})" type="button" class="btn btn-danger">Odebrat</button></td>
+                        </tr>`);
+                     var count = $('#span_' + id).text();
+                     console.log(count);
+                     count = count.replace("\n", "");
+                     count = count.replaceAll(" ", "");
+                     count = parseInt(count);
+                     count++;
+                     console.log(count);
+                     $('#span_' + id).text(count.toString());
+                     Info_Modal.show();
+                 }
              },
                 error: function (edata) {
-
+                    ErrorModal.show();
                 }
         })
       }
@@ -193,10 +216,19 @@
              },
              success: function (data) {
                 //Odebrat z tabulky a ze span_{{ i.id }}
-                RemoveModal.show();
+                 $('#my_'+id).remove();
+                 var count = $('#span_'+id).text();
+                 console.log(count);
+                 count = count.replace("\n", "");
+                 count = count.replaceAll(" ", "");
+                 count = parseInt(count);
+                 count--;
+                 console.log(count);
+                 $('#span_'+id).text(count.toString());
+                 RemoveModal.show();
              },
                 error: function (edata) {
-
+                    ErrorModal.show();
                 }
         })
       }
@@ -259,6 +291,44 @@
   <script>
       var Info_Modal = new bootstrap.Modal(document.getElementById('modalInfo'));
       var RemoveModal = new bootstrap.Modal(document.getElementById('modalRemove'));
+      var ErrorModal = new bootstrap.Modal(document.getElementById('modalError'));
+  </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js" integrity="sha512-cOH8ndwGgPo+K7pTvMrqYbmI8u8k6Sho3js0gOqVWTmQMlLIi6TbqGWRTpf1ga8ci9H3iPsvDLr4X7xwhC/+DQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+      const tl = TweenMax;
+      const el_bible = document.getElementById('bible_text');
+      tl.fromTo(
+       el_bible,
+       0.3,
+       { y: 100, opacity: 0 },
+       { y: 0, opacity: 1}
+      );
+      const el_my = document.getElementById('my');
+      tl.fromTo(
+       el_my,
+       0.7,
+       { y: 100, opacity: 0 },
+       { y: 0, opacity: 1}
+      );
+      const el_all = document.getElementById('all');
+       tl.fromTo(
+       el_all,
+       0.7,
+       { y: 100, opacity: 0 },
+       { y: 0, opacity: 1}
+      );
+      function on_resize() {
+          if ($(this).width() < 992 || $(this).height() < 350) {
+              $('#header').hide();
+          } else {
+              $('#header').show();
+          }
+      }
+      on_resize();
+      $(window).resize(function() {
+          on_resize();
+      });
   </script>
 
 

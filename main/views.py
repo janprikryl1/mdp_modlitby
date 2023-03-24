@@ -17,6 +17,12 @@ def index(request):
     return render(request, "index.html", {"all": all_objects})
 
 
+def load_details(request):
+    politican = Politician.objects.get(id=int(request.POST['id']))
+    intercessors = list(politican.intercessors.values('first_name', 'last_name'))
+    return JsonResponse({"name": politican.__str__(), "position": politican.position, "intercessors": intercessors})
+
+
 def log_out(request):  # Odhlášení uživatele
     if request.user.is_authenticated:
         logout(request)
@@ -29,7 +35,8 @@ def add_me(request):
     politican = Politician.objects.get(id=int(request.POST['id']))
     if not politican.intercessors.contains(request.user):
         politican.intercessors.add(request.user)
-    return HttpResponse()
+        return JsonResponse({"name": politican.name, "surname": politican.surname, "position": politican.position})
+    return JsonResponse({"yet": True})
 
 
 def remove_me(request):

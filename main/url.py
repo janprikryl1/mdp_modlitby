@@ -6,6 +6,7 @@ from . import views
 urlpatterns = [
     # "odkazy" na funkce vracející HTML soubory
     path('', views.index, name='index'),
+    path('load_details', views.load_details, name='load_details'),
     path('add_me', views.add_me, name='add_me'),
     path('remove_me', views.remove_me ,name='remove_me'),
     #Zpětná vazba

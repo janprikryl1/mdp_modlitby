@@ -27,7 +27,7 @@ urlpatterns = [
 
     # Odkaz na soubory
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
-    re_path(r'^favicon\.ico$',RedirectView.as_view(url='/media/icon/icon.svg')),
+    re_path(r'^favicon\.ico$',RedirectView.as_view(url='/media/icon/icon.png')),
 
 
 ]
