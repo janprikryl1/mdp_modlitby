@@ -3,17 +3,18 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from .models import Politician, Feedback
+from django.db.models import Count
 
 
 # Create your views here.
 def index(request):
     if request.user.is_authenticated:
         my_objects = Politician.objects.filter(intercessors__email=request.user.email)
-        all_objects = Politician.objects.all()
-        all_objects.order_by('intercessors')
+        all_objects = Politician.objects.annotate(q_count=Count('intercessors')) \
+                             .order_by('q_count')
         return render(request, "index.html", {"all": all_objects, "my": my_objects})
-    all_objects = Politician.objects.all()
-    all_objects.order_by('intercessors')
+    all_objects = Politician.objects.annotate(q_count=Count('intercessors')) \
+        .order_by('q_count')
     return render(request, "index.html", {"all": all_objects})
 
 
