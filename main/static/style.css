@@ -2,6 +2,53 @@
     body {
         padding-bottom: 3rem;
     }
+    .search {
+        width: 100%;
+        margin-bottom: auto;
+        margin-top: 20px;
+        height: 50px;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .search-input {
+        border: 0;
+        outline: 0;
+        background: none;
+        width: 0;
+        margin-top: 5px;
+        caret-color: transparent;
+        line-height: 20px;
+        transition: width 0.4s linear
+    }
+    .search .search-input {
+        padding: 0 10px;
+        width: 100%;
+        font-size: 19px;
+        font-weight: 300;
+        color: black;
+        transition: width 0.4s linear;
+    }
+    .search-icon {
+        height: 34px;
+        width: 74px;
+        float: right;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        background-color: #126bf2;
+        font-size: 15px;
+        bottom: 30px;
+        position: relative;
+        border-radius: 5px;
+    }
+    .search-icon:hover{
+      color: white;
+    }
+    a:link {
+        text-decoration: none
+    }
 }
 @media (prefers-color-scheme: dark) { /* Dark mode */
     a, H1, H2, H3, H4, p, li, th, td{
@@ -16,6 +63,59 @@
     }
     .featurette-divider {
         color: white;
+    }
+    .search {
+        width: 100%;
+        margin-bottom: auto;
+        margin-top: 20px;
+        height: 50px;
+        background-color: #000;
+        padding: 10px;
+        border: 1px solid white;
+        border-radius: 5px;
+    }
+    .search-input {
+        border: 0;
+        outline: 0;
+        background: none;
+        width: 0;
+        margin-top: 5px;
+        caret-color: transparent;
+        line-height: 20px;
+        transition: width 0.4s linear
+    }
+
+    .search .search-input {
+        padding: 0 10px;
+        width: 100%;
+        font-size: 19px;
+        font-weight: 300;
+        color: white;
+        transition: width 0.4s linear;
+    }
+
+    .search-icon {
+        border: 0;
+        height: 34px;
+        width: 74px;
+        float: right;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        background-color: #126bf2;
+        font-size: 15px;
+        bottom: 30px;
+        position: relative;
+        border-radius: 5px;
+    }
+
+    .search-icon:hover{
+      color: white;
+    }
+
+    a:link {
+        text-decoration: none
     }
 }
 

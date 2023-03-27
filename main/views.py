@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from .models import Politician, Feedback
-from django.db.models import Count
+from django.db.models import Count, Q
 
 
 # Create your views here.
@@ -23,6 +23,10 @@ def load_details(request):
     intercessors = list(politican.intercessors.values('first_name', 'last_name'))
     return JsonResponse({"name": politican.__str__(), "position": politican.position, "intercessors": intercessors})
 
+def search(request):
+    text = request.GET["text"]
+    all = Politician.objects.filter(Q(name__icontains=text) | Q(surname__icontains=text) | Q(position__icontains=text))
+    return render(request, "search.html", {"text":text, "all":all})
 
 def log_out(request):  # Odhlášení uživatele
     if request.user.is_authenticated:
