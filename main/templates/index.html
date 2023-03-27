@@ -90,7 +90,7 @@
   {% endif %}
     <h2>Všichni</h2>
     <form class="search" method="get" action="{% url 'search' %}">
-        <input type="text" class="search-input" placeholder="Vyhledejte podle jména, přijmení nebo postavení..." name="text">
+        <input type="text" class="search-input" placeholder="Vyhledejte podle jména, přijmení nebo postavení..." name="text" required>
         <input type="submit" class="search-icon" value="Hledat">
     </form>
     <table class="table" id="all">
